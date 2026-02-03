@@ -4,9 +4,19 @@
 		<meta charset="UTF-8" />
 		<meta
 			name="description"
-			content="portfolio website of ankush gautam. A student, Web developer."
+			content="Ankush Gautam - BCA Graduate & Full Stack Developer from Nepal. Specialized in HTML, CSS, JavaScript, TypeScript, React, Python, and FastAPI. Explore my terminal-style portfolio showcasing web development projects."
 		/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="keywords" content="Ankush Gautam, web developer, full stack developer, BCA graduate, Purbanchal University, React, FastAPI, Python, JavaScript, TypeScript, Nepal" />
+	<meta name="author" content="Ankush Gautam" />
+	<meta property="og:title" content="Ankush Gautam - Full Stack Developer" />
+	<meta property="og:description" content="BCA Graduate specializing in full-stack web development with React, FastAPI, and modern JavaScript frameworks." />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://ankushgautam.com.np" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Ankush Gautam - Full Stack Developer" />
+	<meta name="twitter:description" content="Explore my terminal-style portfolio showcasing full-stack development projects and experience." />
+	<meta name="twitter:creator" content="@theankushgautam" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- THEME PREFERS  -->
@@ -15,388 +25,246 @@
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
 
-		<title>Ankush Gautam</title>
+		<title>Ankush Gautam - Full Stack Developer & BCA Graduate</title>
 
-		<!-- GOOGLE FONTS  -->
+		<!-- JETBRAINS MONO FONT  -->
 		<link
-			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Ubuntu:wght@400;500;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
 			rel="stylesheet"
-		/>
-
-		<!-- FONT AWESOME  -->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-			integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"
 		/>
 
 		<!-- CSS  -->
 		<link rel="stylesheet" href="styles.css" />
-
-		 <!-- Link Swiper's CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
-    />
 	</head>
 	<body id="body">
-		<!--
-       HEADER 
-     -->
-		<header class="header">
-			<div class="header__nav-container wrapper container">
-				<!-- logo  -->
-				<a href="#" class="logo">AG</a>
-
-				<nav id="header__nav">
-					<ul class="nav-list">
-						<li><a href="#" class="active">HOME</a></li>
-						<li><a href="#">Services</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">About</a></li>
-					</ul>
-				</nav>
-
-				<!-- theme buttons  -->
-				<div class="header__nav-container__theme-btns">
-					<button id="dark-theme-toggle" class="icons" title="Dark Theme">
-						<i class="fa-solid fa-sun"></i>
+		<!-- HEADER  -->
+		<header class="terminal-header">
+			<div class="header-content">
+				<div class="ascii-logo">AG</div>
+				<div class="header-buttons">
+					<button class="theme-toggle" aria-label="Toggle theme" title="Ctrl+D to toggle">
+						<span class="icon">⚡</span>
 					</button>
-
-					<button
-						id="light-theme-toggle"
-						class="icons hidden"
-						title="Light Theme"
-					>
-						<i class="fa-solid fa-moon"></i>
+					<button class="cmd-palette-trigger" aria-label="Open command palette" title="Press / to open">
+						<kbd>/</kbd>
 					</button>
-
-					<button
-						id="open-menu"
-						class="icons hidden"
-						aria-label="open-menu"
-						title="Open Menu"
-					>
-						<i class="fa-solid fa-bars"></i>
-					</button>
-
-					<button
-						id="close-menu"
-						class="icons hidden"
-						aria-label="close-menu"
-						title="Close Menu"
-					>
-						<i class="fa-solid fa-xmark"></i>
-					</button>
-					<!-- end of header__nav-container__theme-btns -->
 				</div>
 			</div>
 		</header>
 
-		<!--
-       MAIN 
-     -->
-		<main class="main container">
-			<div class="hero-lefside">
-				<h2 class="section-title">Hey!</h2>
-				<h1>I am <span class="accent">Ankush Gautam</span>.</h1>
-				<p>
-					I am ANKUSH GAUTAM . I am a Bachelor in Computer Application ( BCA )
-					student from Nepal. Coding has been a part of my life since I
-					discovered that two is the new ten. I love music. And what else do you
-					need when you have a headphone and a keyboard, to create a beautiful
-					piece of art.
-				</p>
-				<button class="btn">Hire Me</button>
-			</div>
+		<!-- MAIN CONTENT  -->
+		<main class="terminal-main">
+			<!-- HERO SECTION  -->
+			<section class="hero" id="home">
+				<div class="prompt">$</div>
+				<h1 class="command">whoami</h1>
+				<div class="output">
+					<h2>Ankush Gautam<span class="cursor">█</span></h2>
+					<p class="subtitle">BCA Graduate | Full Stack Developer</p>
+					<p class="location">📍 Kvt, Province 1, Nepal</p>
+					<div class="cta-buttons">
+						<button class="btn-primary">$ contact --me</button>
+						<a href="https://github.com/Ankush-Gautam" target="_blank" class="btn-secondary">$ visit --github</a>
+					</div>
+				</div>
+			</section>
 
-			<div class="hero-rightside">
-				<img src="images/hero-bg.png" alt="" />
-			</div>
+			<!-- ABOUT SECTION  -->
+			<section class="about" id="about">
+				<div class="prompt">$</div>
+				<h2 class="command">cat ~/about.txt</h2>
+				<div class="output">
+					<p>Just a random guy on the web motivated to make a difference. BCA Graduate from Purbanchal University with a passion for full-stack development and clean code.</p>
+				</div>
+			</section>
+
+			<!-- SKILLS SECTION  -->
+			<section class="skills" id="skills">
+				<div class="prompt">$</div>
+				<h2 class="command">cat ~/skills.json</h2>
+				<pre class="code-block"><code>{
+  <span class="key">"frontend"</span>: [
+    <span class="string">"HTML"</span>,
+    <span class="string">"CSS"</span>,
+    <span class="string">"JavaScript"</span>,
+    <span class="string">"TypeScript"</span>,
+    <span class="string">"React"</span>,
+    <span class="string">"Tailwind CSS"</span>
+  ],
+  <span class="key">"backend"</span>: [
+    <span class="string">"Python"</span>,
+    <span class="string">"FastAPI"</span>
+  ],
+  <span class="key">"tools"</span>: [
+    <span class="string">"Git"</span>,
+    <span class="string">"VS Code"</span>,
+    <span class="string">"Linux"</span>
+  ]
+}</code></pre>
+			</section>
+
+			<!-- EXPERIENCE SECTION  -->
+			<section class="experience" id="experience">
+				<div class="prompt">$</div>
+				<h2 class="command">ls -la ~/experience/</h2>
+				<div class="output">
+					<div class="exp-item">
+						<div class="exp-meta">
+							<span class="file-type">drwxr-xr-x</span>
+							<span class="date">2021-present</span>
+						</div>
+						<h3>freelance/</h3>
+						<p>Freelance Web Development</p>
+						<p class="description">Surfing the web, learning its beauty and weirdness. Building responsive web applications with modern technologies.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- PROJECTS SECTION  -->
+			<section class="projects" id="projects">
+				<div class="prompt">$</div>
+				<h2 class="command">tree ~/projects/</h2>
+				<div class="output tree-view">
+					<div class="tree-root">projects/</div>
+
+					<div class="tree-item">
+						<span class="tree-branch">├──</span>
+						<div class="project-card">
+							<h3>bank-management-system/</h3>
+							<p>Console-based banking app in C++ with transfer and sorting features</p>
+							<a href="https://github.com/Ankush-Gautam/Bank-Management-System" target="_blank" class="link">→ view repo</a>
+						</div>
+					</div>
+
+					<div class="tree-item">
+						<span class="tree-branch">├──</span>
+						<div class="project-card">
+							<h3>number-generator/</h3>
+							<p>Web app that identifies even, odd, and prime numbers</p>
+							<a href="https://ankush-gautam.github.io/Number-generator/" target="_blank" class="link">→ view site</a>
+						</div>
+					</div>
+
+					<div class="tree-item">
+						<span class="tree-branch">└──</span>
+						<div class="project-card">
+							<h3>wordle-cpp/</h3>
+							<p>Wordle game clone built in C++ with multi-file architecture</p>
+							<a href="https://github.com/Ankush-Gautam/Wordle-in-CPP" target="_blank" class="link">→ view repo</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- EDUCATION SECTION  -->
+			<section class="education" id="education">
+				<div class="prompt">$</div>
+				<h2 class="command">cat ~/education.log</h2>
+				<div class="output">
+					<div class="edu-item">
+						<span class="timestamp">[2021-2025]</span>
+						<h3>Purbanchal University - Bachelor in Computer Application</h3>
+						<p>GM College, Birtamode, Nepal</p>
+						<p class="meta">CGPA: 3.6</p>
+					</div>
+					<div class="edu-item">
+						<span class="timestamp">[2006-2017]</span>
+						<h3>North Point School - Grade 10</h3>
+						<p>KVT, Nepal</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- CONTACT SECTION  -->
+			<section class="contact" id="contact">
+				<div class="prompt">$</div>
+				<h2 class="command">ls ~/contact/</h2>
+				<div class="output contact-grid">
+					<a href="mailto:theankushgautam@gmail.com" class="contact-link" title="Email">
+						<i class="icon">📧</i>
+						<span>email.txt</span>
+					</a>
+					<a href="tel:+977-9876543210" class="contact-link" title="Phone">
+						<i class="icon">📞</i>
+						<span>phone.txt</span>
+					</a>
+					<a href="https://github.com/Ankush-Gautam" target="_blank" class="contact-link" title="GitHub">
+						<i class="icon">🐙</i>
+						<span>github/</span>
+					</a>
+					<a href="https://linkedin.com/in/ankush-gautam" target="_blank" class="contact-link" title="LinkedIn">
+						<i class="icon">💼</i>
+						<span>linkedin/</span>
+					</a>
+					<a href="https://twitter.com/theankushgautam" target="_blank" class="contact-link" title="Twitter">
+						<i class="icon">🐦</i>
+						<span>twitter/</span>
+					</a>
+					<a href="https://discord.com" target="_blank" class="contact-link" title="Discord">
+						<i class="icon">💬</i>
+						<span>discord/</span>
+					</a>
+				</div>
+			</section>
 		</main>
 
-		<!-- 
-			SKILLS PROGRESS
-		 -->
-		<section class="my-skills container">
-			<h2 class="section-title">I <span class="accent">can</span> Speak</h2>
-
-			<div class="progress-container">
-				<!-- progress -card - 1 of many -->
-				<div class="progress-card">
-					<label for="html">HTML</label>
-					<div class="progress-width" name="html">
-						<div class="progress-value" data-value="90"></div>
-					</div>
-				</div>
-
-				<div class="progress-card">
-					<label for="css">CSS</label>
-					<div class="progress-width" name="css">
-						<div class="progress-value" data-value="76"></div>
-					</div>
-				</div>
-
-				<div class="progress-card">
-					<label for="tailwind">TAILWIND</label>
-					<div class="progress-width" name="tailwind">
-						<div class="progress-value" data-value="62"></div>
-					</div>
-				</div>
-
-				<div class="progress-card">
-					<label for="javascript">JS</label>
-					<div class="progress-width" name="javascript">
-						<div class="progress-value" data-value="51"></div>
-					</div>
-				</div>
-
-				<div class="progress-card">
-					<label for="react">REACT</label>
-					<div class="progress-width" name="react">
-						<div class="progress-value" data-value="30"></div>
-					</div>
-				</div>
-
-				<div class="progress-card">
-					<label for="ui/ux">UI/UX</label>
-					<div class="progress-width" name="ui/ux">
-						<div class="progress-value" data-value="40"></div>
-					</div>
-				</div>
-			</div>
-			<!-- end of progress container -->
-		</section>
-
-		<!--
-			 MY PROJECTS 
-		 -->
-		<section class="projects container">
-				<h2 class="section-title">My <span class="accent">Pro</span>jects</h2>
-				<div class="swiper mySwiper">
-					<div class="swiper-wrapper">
-
-						<!-- project item 1 -->
-						<div class="swiper-slide">
-							<h3>Bank Management System</h3>
-							<p>This is a simple console-based application made in C++. I made this program as a project for my second semester. This program has basic banking features and a transfer and sort feature.</p>
-
-							<a href="https://github.com/Ankush-Gautam/Bank-Management-System" target="_blank">Check out the Repo.</a>
-						</div>
-
-						<!-- project item 2 -->
-						<div class="swiper-slide">
-							<h3>Number Generator</h3>
-							<p>A simple number generator which highlights whether the number is even , odd or prime.</p>
-
-							<a href="https://ankush-gautam.github.io/Number-generator/" target="_blank">Check out the Website.</a>
-						</div>
-
-						<!-- project item 3 -->
-						<div class="swiper-slide">
-							<h3>Wordle-in-Cpp</h3>
-							<p>I tried to make a wordle clone in c++. In this project I tried to explore multiple file approach to develop a program. I'm pretty much happy where this project has headed.</p>
-
-							<a href="https://github.com/Ankush-Gautam/Wordle-in-CPP" target="_blank">Check out the Repo.</a>
-						</div>
-						<div class="swiper-slide">Slide 4</div>
-						<div class="swiper-slide">Slide 5</div>
-						
-					</div>
-					<div class="swiper-button-next"><i class="fa-solid fa-chevron-right"></i></div>
-					<div class="swiper-button-prev"><i class="fa-solid fa-chevron-left"></i></div>
-					<div class="swiper-pagination"></div>
-				</div>
-		</section>
-
-		<!-- 
-			PROTFOLIO 
-		 -->
-		<section class="portfolio">
-			<div class="portfolio__wrapper container">
-				<!-- aside > about-me & social-links  -->
-				<aside class="portfolio__aside">
-					<img style="border-radius: 50%;" src="images/mypic.jpg" alt="A Picture of Me" />
-					<h2 class="section-title">About <span class="accent">Me</span></h2>
-					<p>
-						Just a random guy on the web motivated to make a difference with no
-						experience what so ever. I aspire to be a full stack developer
-						someday. I am currently studying Bachelor in Computer Application in
-						Gomendra Multiple College, located at Jhapa Nepal. Anti-social but
-						once you get to know me I won't stop talking :)
-					</p>
-					<div class="portfolio__social-links__container">
-						<h2 class="section-title">
-							So<span class="accent">ci</span>al Li<span class="accent">nk</span
-							>s
-						</h2>
-						<div class="porfolio__social-links__container__social-icons">
-							<a href="www.facebook.com">
-								<i class="fa-brands fa-facebook"></i>Ankush Gautam
-							</a>
-							<a href="www.twitter.com">
-								<i class="fa-brands fa-twitter"></i>@theankushgautam
-							</a>
-							<a href="www.reddit.com">
-								<i class="fa-brands fa-reddit"></i>u/subconsiciouslyAg
-							</a>
-							<a href="www.github.com">
-								<i class="fa-brands fa-github"></i>Ankush-Gautam
-							</a>
-							<a href="www.discord.com">
-								<i class="fa-brands fa-discord"></i>@Ag
-							</a>
-						</div>
-					</div>
-				</aside>
-
-				<!-- main portfolio -->
-				<div class="portfolio__rightside">
-					<div class="portfolio__rightside__personal-details">
-						<!-- my name & job  -->
-						<div class="portfolio__rightside__personal-details__intro">
-							<p class="myname"><span class="accent-dark">A</span>nkush</p>
-							<p class="myname"><span class="accent-dark">G</span>autam</p>
-							<p class="job">Web Developer</p>
-						</div>
-
-						<!-- my-address,phone,email,web  -->
-						<div class="portfolio__rightside__personal-details__address">
-							<p>
-								<i class="fa-solid fa-location-dot"></i>Kvt, Province 1, Nepal
-							</p>
-							<p><i class="fa-solid fa-phone"></i>+977 9876543210</p>
-							<p><i class="fa-solid fa-at"></i>theankushgautam@gmail.com</p>
-							<p><i class="fa-solid fa-globe"></i>ankushgautam.com.np</p>
-						</div>
-						<!-- end of perosonal-details container -->
-					</div>
-
-					<hr />
-
-					<!-- my-education  -->
-					<div class="portfolio__rightside__education-details">
-						<p class="subtitle"><span class="accent-dark">Edu</span>cation</p>
-						<div class="about-me__edu-colleges">
-							<!-- University -->
-							<div class="college">
-								<div class="college_title">
-									<p class="strong">GM College</p>
-									<small>Birtamode</small>
-									<p><em>2021-present</em></p>
-								</div>
-								<div class="college-description">
-									<p class="strong">Bachelor in Computer Application (BCA)</p>
-									<p>
-										This is where I found what i wanted to be. I got new friends
-										to whom I look up to. And also learned that Colleges are
-										just for certificate. If you want to be skillful, you are on
-										your own.
-									</p>
-								</div>
-							</div>
-
-							<!-- primary school -->
-							<div class="college">
-								<div class="college_title">
-									<p class="strong">North Point</p>
-									<small>KVT</small>
-									<p><em>2006-2017</em></p>
-								</div>
-
-								<div class="college-description">
-									<p class="strong">Grade 10</p>
-									<p>
-										I learned to learn there. It's the foundation that created
-										my existence. This school gave me friends who are still with
-										me.
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- end of education div  -->
-
-					<!-- my-experience -->
-					<div class="portfolio__rightside__experience-details">
-						<p class="subtitle"><span class="accent-dark">Exp</span>erience</p>
-						<div class="about-exp">
-						
-							<div class="work">
-
-								<div class="work_title">
-									<p class="strong">Freelance</p>
-									<p>Online</p>
-									<p><em>2021-present</em></p>
-								</div>
-
-								<div class="work-description">
-									<p class="strong">Freelancing</p>
-									<p>
-										Just surfing the web learning its weirdness and beauty.
-									</p>
-								</div>
-							</div>
-				
-							</div>
-						</div>
-						<!-- end of experience div -->
-					</div>
-				</div>
-			</div>
-			<!-- end of portfoilo__wrapper-->
-		</section>
-
 		<!-- FOOTER  -->
-		<footer class="footer">
-			<div class="footer__wrapper container">
-				<div class="footer__message-me">
-					<p class="logo accent">
-						<span class="accent">A</span>nkush
-						<span class="accent">G</span>autam
-					</p>
-					<p>
-						Find me across the internet or send send a message to say hi maybe.
-						But the catch is this button doesn't work.
-					</p>
-					<input type="text" placeholder="Write a message..." />
-					<button>Say Hi</button>
-				</div>
-
-				<div class="footer__permalinks">
-					<ul class="footer__permalinks-nav nav-list">
-						<li><a href="#" class="active">HOME</a></li>
-						<li><a href="#">Services</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">About</a></li>
-					</ul>
-				</div>
-
-				<div class="footer__terms-conditions">
-					<ul>
-						<li>Privacy Policy</li>
-						<li>Terms & Conditions</li>
-					</ul>
-				</div>
-
-				<div class="footer__social-icons">
-					<a href="www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
-					<a href="www.twitter.com"><i class="fa-brands fa-twitter"></i></a>
-					<a href="www.reddit.com"><i class="fa-brands fa-reddit"></i></a>
-					<a href="www.github.com"><i class="fa-brands fa-github"></i></a>
-					<a href="www.discord.com"><i class="fa-brands fa-discord"></i></a>
-				</div>
+		<footer class="terminal-footer">
+			<div class="footer-info">
+				<span class="version">version: 1.0.0</span>
+				<span class="separator">|</span>
+				<span class="last-login">last login: <span id="timestamp"></span></span>
 			</div>
-
-			<div class="footer__copyright">
-				<p>&copy; Copyright 2022. Ankush Gautam. All rights not reserved.</p>
-			</div>
+			<p class="copyright">© 2025 Ankush Gautam</p>
+			<p class="help-hint">Press <kbd>?</kbd> for help | <kbd>Ctrl+D</kbd> to toggle theme</p>
 		</footer>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+		<!-- COMMAND PALETTE MODAL  -->
+		<div class="cmd-palette-modal" id="cmdPalette" hidden>
+			<div class="cmd-palette-content">
+				<input
+					type="text"
+					placeholder="Type a command or search..."
+					class="cmd-input"
+					aria-label="Command palette search"
+				/>
+				<ul class="cmd-results"></ul>
+			</div>
+		</div>
+
+		<!-- HELP MODAL  -->
+		<div class="help-modal" id="helpModal" hidden>
+			<div class="help-content">
+				<h2>Keyboard Shortcuts</h2>
+				<div class="shortcuts-grid">
+					<div class="shortcut-item">
+						<kbd>Ctrl+D</kbd>
+						<span>Toggle theme</span>
+					</div>
+					<div class="shortcut-item">
+						<kbd>/</kbd> or <kbd>Ctrl+K</kbd>
+						<span>Open command palette</span>
+					</div>
+					<div class="shortcut-item">
+						<kbd>?</kbd>
+						<span>Show this help</span>
+					</div>
+					<div class="shortcut-item">
+						<kbd>ESC</kbd>
+						<span>Close modals</span>
+					</div>
+				</div>
+				<p class="hint">Try typing "vim" or the Konami code (↑↑↓↓←→←→BA) for fun surprises!</p>
+			</div>
+		</div>
+
+		<!-- VIM TRAP MODAL  -->
+		<div class="vim-trap-modal" id="vimTrap" hidden>
+			<div class="vim-trap-content">
+				<p>You entered vim!</p>
+				<p>Type <kbd>:q</kbd> to exit or press <kbd>ESC</kbd></p>
+			</div>
+		</div>
 
 		<!-- JAVASCRIPT  -->
 		<script src="script.js"></script>
