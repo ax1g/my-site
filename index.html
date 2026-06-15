@@ -1,273 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="description"
-			content="Ankush Gautam - BCA Graduate & Full Stack Developer from Nepal. Specialized in HTML, CSS, JavaScript, TypeScript, React, Python, and FastAPI. Explore my terminal-style portfolio showcasing web development projects."
-		/>
-		<meta name="keywords" content="Ankush Gautam, web developer, full stack developer, BCA graduate, Purbanchal University, React, FastAPI, Python, JavaScript, TypeScript, Nepal" />
-	<meta name="author" content="Ankush Gautam" />
-	<meta property="og:title" content="Ankush Gautam - Full Stack Developer" />
-	<meta property="og:description" content="BCA Graduate specializing in full-stack web development with React, FastAPI, and modern JavaScript frameworks." />
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://ankushgautam.com.np" />
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="Ankush Gautam - Full Stack Developer" />
-	<meta name="twitter:description" content="Explore my terminal-style portfolio showcasing full-stack development projects and experience." />
-	<meta name="twitter:creator" content="@theankushgautam" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ankush Gautam — Backend Focused Engineer from Jhapa, Nepal. Arch Linux, Hyprland, Neovim." />
+  <meta name="author" content="Ankush Gautam" />
+  <meta property="og:title" content="ax1g — Ankush Gautam" />
+  <meta property="og:description" content="Backend Focused Engineer. Arch + Hyprland + Neovim." />
+  <meta property="og:url" content="https://ax1g.github.io" />
+  <meta property="og:image" content="images/dp.jpg" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+  <title>ax1g — Ankush Gautam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" />
+</head>
+<body>
 
-		<!-- THEME PREFERS  -->
-		<meta name="color-scheme" content="dark light" />
+  <!-- ====== WAYBAR ====== -->
+  <header id="waybar">
+    <div class="ws-group">
+      <button class="ws-btn active" data-ws="0" title="Profile">Ⅰ</button>
+      <button class="ws-btn" data-ws="1" title="Projects + Contact">Ⅱ</button>
+    </div>
+    <div class="bar-center">
+      <span class="bar-title">ax1g — ~/portfolio</span>
+    </div>
+    <div class="bar-right">
+      <span id="clock"></span>
+      <button class="theme-toggle" aria-label="Toggle theme" title="Ctrl+D to toggle"><i class="fa-regular fa-moon ti"></i></button>
+    </div>
+  </header>
 
-		<!-- FAVICON -->
-		<link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+  <!-- ====== DESKTOP ====== -->
+  <main id="desktop" role="main" tabindex="-1">
 
-		<title>Ankush Gautam - Full Stack Developer & BCA Graduate</title>
+    <!-- ───── WS 0: PROFILE ───── -->
+    <div class="workspace active" id="ws0">
+      <div class="window about-win">
+        <div class="win-title">
+          <span class="win-dots"><span class="dot close"></span><span class="dot min"></span><span class="dot max"></span></span>
+          <span class="win-name">~/about</span>
+        </div>
+        <div class="win-body scroll">
+          <div class="term-line"><span class="prompt">$</span> <span class="cmd">cat ~/whoami</span></div>
+          <div class="about-profile">
+            <div class="avatar-wrapper">
+              <img src="images/dp.jpg" alt="Ankush Gautam" class="avatar" />
+              <div class="online-indicator"></div>
+            </div>
+            <h1 class="name">Ankush Gautam</h1>
+            <p class="subtitle">Backend Focused Engineer</p>
+            <p class="loc"><i class="fa-solid fa-location-dot icon-inline"></i> Jhapa, Nepal</p>
+            <div class="cta-group">
+              <a href="mailto:theankushgautam@gmail.com" class="btn">contact --mail</a>
+              <a href="https://github.com/ax1g" target="_blank" class="btn">visit --github</a>
+            </div>
+          </div>
+          <div class="term-line section-gap"><span class="prompt">$</span> <span class="cmd">cat ~/about</span></div>
+          <p class="about-text">Backend engineer with a deep appreciation for well-architected systems, clean APIs, and the Linux philosophy. I build scalable backend services and believe code should be readable, testable, and maintainable. BCA graduate with a 3.6 CGPA.</p>
 
-		<!-- JETBRAINS MONO FONT  -->
-		<link
-			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
-			rel="stylesheet"
-		/>
+          <div class="term-line section-gap"><span class="prompt">$</span> <span class="cmd">cat ~/experience</span></div>
+          <div class="exp-list">
+            <div class="exp-item">
+              <span class="exp-dot"></span>
+              <div class="exp-info">
+                <span class="exp-role">Backend Engineer</span>
+                <span class="exp-company">MCT</span>
+                <span class="exp-years">2 yrs</span>
+              </div>
+            </div>
+            <ul class="exp-details">
+              <li>Architected and maintained RESTful APIs serving production traffic</li>
+              <li>Optimized PostgreSQL queries, reducing average response times</li>
+              <li>Implemented CI/CD pipelines for automated testing and deployment</li>
+            </ul>
+            <div class="exp-item">
+              <span class="exp-dot"></span>
+              <div class="exp-info">
+                <span class="exp-role">Data Annotator</span>
+                <span class="exp-company">CloudFactory</span>
+                <span class="exp-years">2 yrs</span>
+              </div>
+            </div>
+            <ul class="exp-details">
+              <li>Labeled and validated high-quality training data for machine learning models</li>
+              <li>Maintained 98%+ annotation accuracy across multiple projects</li>
+            </ul>
+          </div>
 
-		<!-- CSS  -->
-		<link rel="stylesheet" href="styles.css" />
-	</head>
-	<body id="body">
-		<!-- HEADER  -->
-		<header class="terminal-header">
-			<div class="header-content">
-				<div class="ascii-logo">AG</div>
-				<div class="header-buttons">
-					<button class="theme-toggle" aria-label="Toggle theme" title="Ctrl+D to toggle">
-						<span class="icon">⚡</span>
-					</button>
-					<button class="cmd-palette-trigger" aria-label="Open command palette" title="Press / to open">
-						<kbd>/</kbd>
-					</button>
-				</div>
-			</div>
-		</header>
+          <div class="term-line section-gap"><span class="prompt">$</span> <span class="cmd">cat ~/education</span></div>
+          <div class="exp-list">
+            <div class="exp-item">
+              <span class="exp-dot" style="background: var(--mauve)"></span>
+              <div class="exp-info">
+                <span class="exp-role">Purbanchal University</span>
+                <span class="exp-company">BCA</span>
+                <span class="exp-years">2021-2025</span>
+              </div>
+            </div>
+            <div class="exp-item">
+              <span class="exp-dot" style="background: var(--blue)"></span>
+              <div class="exp-info">
+                <span class="exp-role">SDHS</span>
+                <span class="exp-company">+2 Computer Science</span>
+                <span class="exp-years">2018-2020</span>
+              </div>
+            </div>
+            <div class="exp-item">
+              <span class="exp-dot" style="background: var(--blue)"></span>
+              <div class="exp-info">
+                <span class="exp-role">North Point School</span>
+                <span class="exp-company">Grade 10</span>
+                <span class="exp-years">2006-2017</span>
+              </div>
+            </div>
+          </div>
 
-		<!-- MAIN CONTENT  -->
-		<main class="terminal-main">
-			<!-- HERO SECTION  -->
-			<section class="hero" id="home">
-				<div class="prompt">$</div>
-				<h1 class="command">whoami</h1>
-				<div class="output">
-					<h2>Ankush Gautam<span class="cursor">█</span></h2>
-					<p class="subtitle">BCA Graduate | Full Stack Developer</p>
-					<p class="location">📍 Kvt, Province 1, Nepal</p>
-					<div class="cta-buttons">
-						<button class="btn-primary">$ contact --me</button>
-						<a href="https://github.com/Ankush-Gautam" target="_blank" class="btn-secondary">$ visit --github</a>
-					</div>
-				</div>
-			</section>
+          <div class="term-line section-gap"><span class="prompt">$</span> <span class="cmd">cat ~/tech-stack</span></div>
+          <div class="tech-pills">
+            <span class="pill">Python</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">PostgreSQL</span>
+            <span class="pill">Docker</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">Tailwind</span>
+            <span class="pill">Linux</span>
+            <span class="pill">NumPy</span>
+            <span class="pill">Rust</span>
+          </div>
+        </div>
+      </div>
 
-			<!-- ABOUT SECTION  -->
-			<section class="about" id="about">
-				<div class="prompt">$</div>
-				<h2 class="command">cat ~/about.txt</h2>
-				<div class="output">
-					<p>Just a random guy on the web motivated to make a difference. BCA Graduate from Purbanchal University with a passion for full-stack development and clean code.</p>
-				</div>
-			</section>
+      <div class="window repos-win">
+        <div class="win-title">
+          <span class="win-dots"><span class="dot close"></span><span class="dot min"></span><span class="dot max"></span></span>
+          <span class="win-name">projects/ — featured</span>
+        </div>
+        <div class="win-body scroll">
+          <div class="term-line"><span class="prompt">$</span> <span class="cmd">ls -la ~/featured-projects/</span></div>
+          <div class="featured-grid" id="featuredRepos">
+            <div class="repo-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading featured...</div>
+          </div>
+          <div class="term-line section-gap"><span class="prompt">$</span> <span class="cmd">gh repo list ax1g --limit 50</span></div>
+          <div id="repoList">
+            <div class="repo-loading"><i class="fa-solid fa-spinner fa-spin"></i> Fetching repos...</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-			<!-- SKILLS SECTION  -->
-			<section class="skills" id="skills">
-				<div class="prompt">$</div>
-				<h2 class="command">cat ~/skills.json</h2>
-				<pre class="code-block"><code>{
-  <span class="key">"frontend"</span>: [
-    <span class="string">"HTML"</span>,
-    <span class="string">"CSS"</span>,
-    <span class="string">"JavaScript"</span>,
-    <span class="string">"TypeScript"</span>,
-    <span class="string">"React"</span>,
-    <span class="string">"Tailwind CSS"</span>
-  ],
-  <span class="key">"backend"</span>: [
-    <span class="string">"Python"</span>,
-    <span class="string">"FastAPI"</span>
-  ],
-  <span class="key">"tools"</span>: [
-    <span class="string">"Git"</span>,
-    <span class="string">"VS Code"</span>,
-    <span class="string">"Linux"</span>
-  ]
-}</code></pre>
-			</section>
+    <!-- ───── WS 1: PROJECTS + CONTACT ───── -->
+    <div class="workspace" id="ws1">
+      <div class="window tools-win">
+        <div class="win-title">
+          <span class="win-dots"><span class="dot close"></span><span class="dot min"></span><span class="dot max"></span></span>
+          <span class="win-name">~/dev-environment</span>
+        </div>
+        <div class="win-body">
+          <div class="ff-output">
+            <pre class="ff-ascii ff-ascii-sm">
+       /\
+      /  \
+     /    \
+    /      \
+   /   ,,   \
+  /   |  |   \
+ /_-''    ''-_\
+            </pre>
+            <div class="ff-info">
+              <div class="ff-line"><span class="ff-key"><i class="fa-solid fa-user"></i></span> <span class="ff-val">agx</span></div>
+              <div class="ff-line"><span class="ff-key"><i class="fa-brands fa-linux"></i></span> <span class="ff-val">Arch Linux</span></div>
+              <div class="ff-line"><span class="ff-key"><i class="fa-solid fa-layer-group"></i></span> <span class="ff-val">Hyprland</span></div>
+              <div class="ff-line"><span class="ff-key"><i class="fa-solid fa-terminal"></i></span> <span class="ff-val">alacritty</span></div>
+              <div class="ff-line"><span class="ff-key"><i class="fa-solid fa-cheese"></i></span> <span class="ff-val">bash</span></div>
+            </div>
+          </div>
+          <div class="utils-grid">
+            <div class="util-item">
+              <div class="util-icon"><i class="fa-regular fa-file-lines"></i></div>
+              <div class="util-info">
+                <span class="util-name">Obsidian</span>
+                <span class="util-desc">Second brain</span>
+              </div>
+            </div>
+            <div class="util-item">
+              <div class="util-icon"><i class="fa-solid fa-pen"></i></div>
+              <div class="util-info">
+                <span class="util-name">Neovim</span>
+                <span class="util-desc">The one true editor</span>
+              </div>
+            </div>
+            <div class="util-item">
+              <div class="util-icon"><i class="fa-solid fa-robot"></i></div>
+              <div class="util-info">
+                <span class="util-name">opencode</span>
+                <span class="util-desc">AI in terminal</span>
+              </div>
+            </div>
+            <div class="util-item">
+              <div class="util-icon"><i class="fa-solid fa-brain"></i></div>
+              <div class="util-info">
+                <span class="util-name">Ollama</span>
+                <span class="util-desc">Local LLMs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<!-- EXPERIENCE SECTION  -->
-			<section class="experience" id="experience">
-				<div class="prompt">$</div>
-				<h2 class="command">ls -la ~/experience/</h2>
-				<div class="output">
-					<div class="exp-item">
-						<div class="exp-meta">
-							<span class="file-type">drwxr-xr-x</span>
-							<span class="date">2021-present</span>
-						</div>
-						<h3>freelance/</h3>
-						<p>Freelance Web Development</p>
-						<p class="description">Surfing the web, learning its beauty and weirdness. Building responsive web applications with modern technologies.</p>
-					</div>
-				</div>
-			</section>
+      <div class="window contact-win">
+        <div class="win-title">
+          <span class="win-dots"><span class="dot close"></span><span class="dot min"></span><span class="dot max"></span></span>
+          <span class="win-name">~/contact</span>
+        </div>
+        <div class="win-body">
+          <div class="term-line"><span class="prompt">$</span> <span class="cmd">cat ~/.cheatsheet</span></div>
+          <div class="shortcuts-list">
+            <div class="sc"><kbd>1</kbd>–<kbd>2</kbd> <span>Workspaces</span></div>
+            <div class="sc"><kbd>?</kbd> <span>Help</span></div>
+            <div class="sc"><kbd>Ctrl+D</kbd> <span>Theme toggle</span></div>
+            <div class="sc"><kbd>/</kbd> <span>Command palette</span></div>
+            <div class="sc"><kbd>Esc</kbd> <span>Close modals</span></div>
+          </div>
+          <div class="contact-links">
+            <a href="mailto:theankushgautam@gmail.com" class="contact-item">
+              <i class="fa-regular fa-envelope"></i>
+              <span>theankushgautam@gmail.com</span>
+            </a>
+            <a href="https://github.com/ax1g" target="_blank" class="contact-item">
+              <i class="fa-brands fa-github"></i>
+              <span>github.com/ax1g</span>
+            </a>
+            <a href="https://linkedin.com/in/ankush-gautam" target="_blank" class="contact-item">
+              <i class="fa-brands fa-linkedin"></i>
+              <span>linkedin.com/in/ankush-gautam</span>
+            </a>
+            <a href="https://x.com/ax1g_" target="_blank" class="contact-item">
+              <i class="fa-brands fa-x-twitter"></i>
+              <span>x.com/ax1g_</span>
+            </a>
+          </div>
+          <div class="egg-list">
+            <div class="egg-item"><span class="key">"vim"</span> → <span class="string">Vim trap (:q to escape)</span></div>
+            <div class="egg-item"><span class="key">↑↑↓↓←→←→BA</span> → <span class="string">Konami code</span></div>
+            <div class="egg-item"><span class="key">"sudo make me a sandwich"</span> → <span class="string">🥪</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-			<!-- PROJECTS SECTION  -->
-			<section class="projects" id="projects">
-				<div class="prompt">$</div>
-				<h2 class="command">tree ~/projects/</h2>
-				<div class="output tree-view">
-					<div class="tree-root">projects/</div>
+  </main>
 
-					<div class="tree-item">
-						<span class="tree-branch">├──</span>
-						<div class="project-card">
-							<h3>bank-management-system/</h3>
-							<p>Console-based banking app in C++ with transfer and sorting features</p>
-							<a href="https://github.com/Ankush-Gautam/Bank-Management-System" target="_blank" class="link">→ view repo</a>
-						</div>
-					</div>
+  <!-- ====== DOCK ====== -->
+  <footer id="dock">
+    <div class="dock-left">
+      <span class="dock-item logo-text" aria-label="Ankush Gautam">AGX</span>
+    </div>
+    <div class="dock-right">
+      <a href="mailto:theankushgautam@gmail.com" class="dock-item" title="Email"><i class="fa-regular fa-envelope"></i></a>
+      <a href="https://github.com/ax1g" target="_blank" class="dock-item" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://linkedin.com/in/ankush-gautam" target="_blank" class="dock-item" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://x.com/ax1g_" target="_blank" class="dock-item" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://monkeytype.com/profile/ax1g_" target="_blank" class="dock-item" title="Monkeytype (ax1g_)"><i class="fa-regular fa-keyboard"></i></a>
+    </div>
+  </footer>
 
-					<div class="tree-item">
-						<span class="tree-branch">├──</span>
-						<div class="project-card">
-							<h3>number-generator/</h3>
-							<p>Web app that identifies even, odd, and prime numbers</p>
-							<a href="https://ankush-gautam.github.io/Number-generator/" target="_blank" class="link">→ view site</a>
-						</div>
-					</div>
+  <!-- ====== COMMAND PALETTE MODAL ====== -->
+  <div class="modal" id="cmdPalette" hidden>
+    <div class="modal-overlay"></div>
+    <div class="modal-content cmd-modal">
+      <input type="text" class="cmd-input" placeholder="Type a command..." aria-label="Command palette" />
+      <ul class="cmd-results"></ul>
+    </div>
+  </div>
 
-					<div class="tree-item">
-						<span class="tree-branch">└──</span>
-						<div class="project-card">
-							<h3>wordle-cpp/</h3>
-							<p>Wordle game clone built in C++ with multi-file architecture</p>
-							<a href="https://github.com/Ankush-Gautam/Wordle-in-CPP" target="_blank" class="link">→ view repo</a>
-						</div>
-					</div>
-				</div>
-			</section>
+  <!-- ====== HELP MODAL ====== -->
+  <div class="modal" id="helpModal" hidden>
+    <div class="modal-overlay"></div>
+    <div class="modal-content help-modal">
+      <h2>Help &amp; Shortcuts</h2>
+      <div class="shortcuts-grid">
+        <div class="sc-item"><kbd>1</kbd>–<kbd>2</kbd> <span>Switch workspaces (Profile, Projects)</span></div>
+        <div class="sc-item"><kbd>?</kbd> <span>Show this help</span></div>
+        <div class="sc-item"><kbd>Ctrl+D</kbd> <span>Toggle theme</span></div>
+        <div class="sc-item"><kbd>/</kbd> or <kbd>Ctrl+K</kbd> <span>Command palette</span></div>
+        <div class="sc-item"><kbd>Esc</kbd> <span>Close modals</span></div>
+      </div>
+      <p class="hint">Try typing "vim" or the Konami code (↑↑↓↓←→←→BA) for surprises!</p>
+      <button class="btn close-help">Close</button>
+    </div>
+  </div>
 
-			<!-- EDUCATION SECTION  -->
-			<section class="education" id="education">
-				<div class="prompt">$</div>
-				<h2 class="command">cat ~/education.log</h2>
-				<div class="output">
-					<div class="edu-item">
-						<span class="timestamp">[2021-2025]</span>
-						<h3>Purbanchal University - Bachelor in Computer Application</h3>
-						<p>GM College, Birtamode, Nepal</p>
-						<p class="meta">CGPA: 3.6</p>
-					</div>
-					<div class="edu-item">
-						<span class="timestamp">[2006-2017]</span>
-						<h3>North Point School - Grade 10</h3>
-						<p>KVT, Nepal</p>
-					</div>
-				</div>
-			</section>
+  <!-- ====== VIM TRAP MODAL ====== -->
+  <div class="modal" id="vimTrap" hidden>
+    <div class="modal-overlay"></div>
+    <div class="modal-content vim-modal">
+      <p>You entered <strong>vim</strong>! 😈</p>
+      <p>Type <kbd>:q</kbd> to exit or press <kbd>Esc</kbd></p>
+    </div>
+  </div>
 
-			<!-- CONTACT SECTION  -->
-			<section class="contact" id="contact">
-				<div class="prompt">$</div>
-				<h2 class="command">ls ~/contact/</h2>
-				<div class="output contact-grid">
-					<a href="mailto:theankushgautam@gmail.com" class="contact-link" title="Email">
-						<i class="icon">📧</i>
-						<span>email.txt</span>
-					</a>
-					<a href="tel:+977-9876543210" class="contact-link" title="Phone">
-						<i class="icon">📞</i>
-						<span>phone.txt</span>
-					</a>
-					<a href="https://github.com/Ankush-Gautam" target="_blank" class="contact-link" title="GitHub">
-						<i class="icon">🐙</i>
-						<span>github/</span>
-					</a>
-					<a href="https://linkedin.com/in/ankush-gautam" target="_blank" class="contact-link" title="LinkedIn">
-						<i class="icon">💼</i>
-						<span>linkedin/</span>
-					</a>
-					<a href="https://twitter.com/theankushgautam" target="_blank" class="contact-link" title="Twitter">
-						<i class="icon">🐦</i>
-						<span>twitter/</span>
-					</a>
-					<a href="https://discord.com" target="_blank" class="contact-link" title="Discord">
-						<i class="icon">💬</i>
-						<span>discord/</span>
-					</a>
-				</div>
-			</section>
-		</main>
-
-		<!-- FOOTER  -->
-		<footer class="terminal-footer">
-			<div class="footer-info">
-				<span class="version">version: 1.0.0</span>
-				<span class="separator">|</span>
-				<span class="last-login">last login: <span id="timestamp"></span></span>
-			</div>
-			<p class="copyright">© 2025 Ankush Gautam</p>
-			<p class="help-hint">Press <kbd>?</kbd> for help | <kbd>Ctrl+D</kbd> to toggle theme</p>
-		</footer>
-
-		<!-- COMMAND PALETTE MODAL  -->
-		<div class="cmd-palette-modal" id="cmdPalette" hidden>
-			<div class="cmd-palette-content">
-				<input
-					type="text"
-					placeholder="Type a command or search..."
-					class="cmd-input"
-					aria-label="Command palette search"
-				/>
-				<ul class="cmd-results"></ul>
-			</div>
-		</div>
-
-		<!-- HELP MODAL  -->
-		<div class="help-modal" id="helpModal" hidden>
-			<div class="help-content">
-				<h2>Keyboard Shortcuts</h2>
-				<div class="shortcuts-grid">
-					<div class="shortcut-item">
-						<kbd>Ctrl+D</kbd>
-						<span>Toggle theme</span>
-					</div>
-					<div class="shortcut-item">
-						<kbd>/</kbd> or <kbd>Ctrl+K</kbd>
-						<span>Open command palette</span>
-					</div>
-					<div class="shortcut-item">
-						<kbd>?</kbd>
-						<span>Show this help</span>
-					</div>
-					<div class="shortcut-item">
-						<kbd>ESC</kbd>
-						<span>Close modals</span>
-					</div>
-				</div>
-				<p class="hint">Try typing "vim" or the Konami code (↑↑↓↓←→←→BA) for fun surprises!</p>
-			</div>
-		</div>
-
-		<!-- VIM TRAP MODAL  -->
-		<div class="vim-trap-modal" id="vimTrap" hidden>
-			<div class="vim-trap-content">
-				<p>You entered vim!</p>
-				<p>Type <kbd>:q</kbd> to exit or press <kbd>ESC</kbd></p>
-			</div>
-		</div>
-
-		<!-- JAVASCRIPT  -->
-		<script src="script.js"></script>
-
-	</body>
+  <script src="script.js"></script>
+</body>
 </html>

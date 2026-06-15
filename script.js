@@ -1,360 +1,442 @@
+(function() {
+'use strict';
+
+const langColor = {
+  TypeScript: '#3178c6', JavaScript: '#f1e05a', Lua: '#000080',
+  Shell: '#89e051', Python: '#3572a5', HTML: '#e34c26',
+  CSS: '#563d7c', Rust: '#dea584', Go: '#00add8',
+};
+
 /* ============================================
    THEME TOGGLE
    ============================================ */
-const themeToggle = document.querySelector('.theme-toggle');
 const html = document.documentElement;
+const themeBtn = document.querySelector('.theme-toggle');
 
-// Load saved theme or default to dark
-const currentTheme = localStorage.getItem('theme') || 'dark';
-if (currentTheme === 'light') {
-	html.classList.add('light-theme');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+if (savedTheme === 'light') {
+  html.classList.add('light-theme');
 }
-
-themeToggle.addEventListener('click', toggleTheme);
 
 function toggleTheme() {
-	html.classList.toggle('light-theme');
-	const theme = html.classList.contains('light-theme') ? 'light' : 'dark';
-	localStorage.setItem('theme', theme);
+  html.classList.toggle('light-theme');
+  const isLight = html.classList.contains('light-theme');
+  const theme = isLight ? 'light' : 'dark';
+  localStorage.setItem('theme', theme);
+  themeBtn.innerHTML = `<i class="fa-regular fa-${isLight ? 'sun' : 'moon'} ti"></i>`;
 }
 
-// Keyboard shortcut: Ctrl+D
+themeBtn.addEventListener('click', toggleTheme);
+
 document.addEventListener('keydown', (e) => {
-	if (e.ctrlKey && e.key === 'd') {
-		e.preventDefault();
-		toggleTheme();
-	}
+  if (e.ctrlKey && e.key === 'd') {
+    e.preventDefault();
+    toggleTheme();
+  }
 });
 
 /* ============================================
-   TYPEWRITER EFFECT
+   CLOCK
    ============================================ */
-function typewriter(element, text, speed = 60) {
-	let i = 0;
-	element.textContent = '';
-
-	function type() {
-		if (i < text.length) {
-			element.textContent += text.charAt(i);
-			i++;
-			setTimeout(type, speed);
-		}
-	}
-
-	type();
+function updateClock() {
+  const clock = document.getElementById('clock');
+  if (!clock) return;
+  const now = new Date();
+  clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
-// Apply typewriter to hero name on page load
-window.addEventListener('load', () => {
-	const heroName = document.querySelector('.hero h2');
-	if (heroName) {
-		const nameText = heroName.textContent.trim();
-		typewriter(heroName, nameText, 80);
-	}
-	updateTimestamp();
+updateClock();
+setInterval(updateClock, 10000);
+
+/* ============================================
+   WORKSPACE SWITCHING
+   ============================================ */
+let currentWs = 0;
+const wsButtons = document.querySelectorAll('.ws-btn');
+const workspaces = document.querySelectorAll('.workspace');
+
+function switchWs(index) {
+  if (index === currentWs) return;
+  wsButtons.forEach((btn, i) => btn.classList.toggle('active', i === index));
+  workspaces.forEach((ws, i) => ws.classList.toggle('active', i === index));
+  currentWs = index;
+}
+
+wsButtons.forEach((btn) => {
+  btn.addEventListener('click', () => switchWs(parseInt(btn.dataset.ws)));
 });
+
+document.addEventListener('keydown', (e) => {
+  const num = parseInt(e.key);
+  if (num >= 1 && num <= 2 && !e.ctrlKey && !e.metaKey) {
+    if (!(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
+      switchWs(num - 1);
+    }
+  }
+});
+
+
+/* ============================================
+   GITHUB REPOS
+   ============================================ */
+(async function fetchRepos() {
+  const repoList = document.getElementById('repoList');
+  if (!repoList) return;
+
+  function render(repos) {
+    const loading = repoList.querySelector('.repo-loading');
+    if (loading) loading.remove();
+
+    const container = document.createElement('div');
+    container.className = 'repo-list';
+
+    repos.forEach(repo => {
+      const item = document.createElement('a');
+      item.href = repo.html_url;
+      item.target = '_blank';
+      item.className = 'repo-item';
+
+      const color = langColor[repo.language] || '#6c7086';
+
+      item.innerHTML = `
+        <div class="repo-top">
+          <span class="repo-name">${repo.name}</span>
+        </div>
+        ${repo.description ? `<div class="repo-desc">${repo.description}</div>` : ''}
+        <div class="repo-bottom">
+          ${repo.language ? `<span class="repo-lang"><span class="repo-lang-dot" style="background:${color}"></span>${repo.language}</span>` : ''}
+        </div>
+      `;
+      container.appendChild(item);
+    });
+
+    repoList.appendChild(container);
+  }
+
+  try {
+    const cached = localStorage.getItem('github_repos');
+    const cacheTime = localStorage.getItem('github_repos_time');
+    if (cached && cacheTime && Date.now() - parseInt(cacheTime) < 300000) {
+      render(JSON.parse(cached));
+      return;
+    }
+  } catch (_) {}
+
+  try {
+    const res = await fetch('https://api.github.com/users/ax1g/repos?sort=updated&per_page=50');
+    if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
+    const repos = await res.json();
+    localStorage.setItem('github_repos', JSON.stringify(repos));
+    localStorage.setItem('github_repos_time', String(Date.now()));
+    render(repos);
+  } catch (err) {
+    const el = repoList.querySelector('.repo-loading');
+    if (el) {
+      el.className = 'repo-error';
+      el.textContent = '❌ Failed to fetch repos. Try again later.';
+    }
+  }
+})();
+
+/* ============================================
+   FEATURED REPOS
+   ============================================ */
+(async function fetchFeaturedRepos() {
+  const container = document.getElementById('featuredRepos');
+  if (!container) return;
+
+  const featuredRepos = ['neco', 'pin', 'cms'];
+  const icons = { neco: 'fa-coins', pin: 'fa-link', cms: 'fa-database' };
+
+  function render(repos) {
+    container.innerHTML = '';
+    repos.forEach(repo => {
+      const item = document.createElement('a');
+      item.href = repo.html_url;
+      item.target = '_blank';
+      item.className = 'featured-item';
+      const color = langColor[repo.language] || '#6c7086';
+      item.innerHTML = `
+        <div class="featured-icon"><i class="fa-solid ${icons[repo.name] || 'fa-code'}"></i></div>
+        <div class="featured-info">
+          <span class="featured-name">${repo.name}</span>
+          ${repo.description ? `<span class="featured-desc">${repo.description}</span>` : ''}
+          <span class="featured-lang"><span class="repo-lang-dot" style="background:${color}"></span>${repo.language || 'N/A'}</span>
+        </div>
+      `;
+      container.appendChild(item);
+    });
+  }
+
+  try {
+    const cached = localStorage.getItem('github_featured');
+    const cacheTime = localStorage.getItem('github_featured_time');
+    if (cached && cacheTime && Date.now() - parseInt(cacheTime) < 300000) {
+      render(JSON.parse(cached));
+      return;
+    }
+  } catch (_) {}
+
+  try {
+    const settled = await Promise.allSettled(
+      featuredRepos.map(id =>
+        fetch(`https://api.github.com/repos/ax1g/${id}`).then(r => {
+          if (!r.ok) throw new Error(`${id}: ${r.status}`);
+          return r.json();
+        })
+      )
+    );
+    const results = settled.filter(r => r.status === 'fulfilled').map(r => r.value);
+    if (results.length === 0) throw new Error('no repos');
+    localStorage.setItem('github_featured', JSON.stringify(results));
+    localStorage.setItem('github_featured_time', String(Date.now()));
+    render(results);
+  } catch (_) {
+    container.innerHTML = '';
+  }
+})();
 
 /* ============================================
    COMMAND PALETTE
    ============================================ */
-const cmdPaletteModal = document.getElementById('cmdPalette');
-const cmdPaletteTrigger = document.querySelector('.cmd-palette-trigger');
+const cmdPalette = document.getElementById('cmdPalette');
 const cmdInput = document.querySelector('.cmd-input');
 const cmdResults = document.querySelector('.cmd-results');
 
-// Command registry
 const commands = [
-	{ name: 'Home', command: 'goto home', action: () => scrollToSection('home') },
-	{ name: 'About', command: 'goto about', action: () => scrollToSection('about') },
-	{ name: 'Skills', command: 'goto skills', action: () => scrollToSection('skills') },
-	{ name: 'Experience', command: 'goto experience', action: () => scrollToSection('experience') },
-	{ name: 'Projects', command: 'goto projects', action: () => scrollToSection('projects') },
-	{ name: 'Education', command: 'goto education', action: () => scrollToSection('education') },
-	{ name: 'Contact', command: 'goto contact', action: () => scrollToSection('contact') },
-	{ name: 'Toggle Theme', command: 'theme toggle', action: toggleTheme },
-	{ name: 'Copy Email', command: 'copy email', action: () => copyToClipboard('theankushgautam@gmail.com') },
-	{ name: 'GitHub', command: 'visit github', action: () => window.open('https://github.com/Ankush-Gautam', '_blank') },
+  { name: 'Profile', desc: 'About, experience, education, tech stack', action: () => switchWs(0) },
+  { name: 'Projects & Contact', desc: 'Featured work, GitHub repos, contact', action: () => switchWs(1) },
+  { name: 'Toggle Theme', desc: 'Switch dark/light', action: toggleTheme },
+  { name: 'Copy Email', desc: 'theankushgautam@gmail.com', action: () => copyToClipboard('theankushgautam@gmail.com') },
+  { name: 'Open GitHub', desc: 'github.com/ax1g', action: () => window.open('https://github.com/ax1g', '_blank') },
+  { name: 'Open Monkeytype', desc: 'monkeytype.com/profile/ax1g_', action: () => window.open('https://monkeytype.com/profile/ax1g_', '_blank') },
 ];
 
-// Open command palette
+let cmdActiveIdx = -1;
+
 function openCmdPalette() {
-	cmdPaletteModal.hidden = false;
-	cmdInput.focus();
-	renderCommands(commands);
+  cmdPalette.hidden = false;
+  cmdInput.value = '';
+  cmdActiveIdx = -1;
+  cmdInput.focus();
+  renderCommands(commands);
 }
 
-// Close command palette
 function closeCmdPalette() {
-	cmdPaletteModal.hidden = true;
-	cmdInput.value = '';
+  cmdPalette.hidden = true;
+  cmdInput.value = '';
 }
 
-// Render commands in results list
 function renderCommands(cmds) {
-	cmdResults.innerHTML = '';
-	if (cmds.length === 0) {
-		const noResults = document.createElement('li');
-		noResults.className = 'cmd-result-item';
-		noResults.textContent = 'No results found';
-		noResults.style.color = 'var(--text-muted)';
-		cmdResults.appendChild(noResults);
-		return;
-	}
-	cmds.forEach((cmd, index) => {
-		const li = document.createElement('li');
-		li.className = 'cmd-result-item';
-		li.textContent = `${cmd.command} - ${cmd.name}`;
-		li.dataset.index = index;
-		li.addEventListener('click', () => {
-			cmd.action();
-			closeCmdPalette();
-		});
-		cmdResults.appendChild(li);
-	});
+  cmdResults.innerHTML = '';
+  if (cmds.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'cmd-result-item';
+    li.textContent = 'No results found.';
+    li.style.color = 'var(--overlay1)';
+    cmdResults.appendChild(li);
+    return;
+  }
+
+  cmds.forEach((cmd, index) => {
+    const li = document.createElement('li');
+    li.className = 'cmd-result-item';
+    li.dataset.index = index;
+    li.innerHTML = `${cmd.name} <span class="cmd-desc">${cmd.desc}</span>`;
+    li.addEventListener('click', () => {
+      cmd.action();
+      closeCmdPalette();
+    });
+    cmdResults.appendChild(li);
+  });
 }
 
-// Filter commands based on input
 cmdInput.addEventListener('input', (e) => {
-	const query = e.target.value.toLowerCase();
-	const filtered = commands.filter(
-		(cmd) => cmd.name.toLowerCase().includes(query) || cmd.command.toLowerCase().includes(query)
-	);
-	renderCommands(filtered);
+  cmdActiveIdx = -1;
+  const q = e.target.value.toLowerCase();
+  const filtered = commands.filter(c =>
+    c.name.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q)
+  );
+  renderCommands(filtered);
 });
 
-// Keyboard shortcuts for command palette
-cmdPaletteTrigger.addEventListener('click', openCmdPalette);
-
-document.addEventListener('keydown', (e) => {
-	// Open with / or Ctrl+K (unless typing in input)
-	if (cmdPaletteModal.hidden && (e.key === '/' || (e.ctrlKey && e.key === 'k'))) {
-		if (!(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
-			e.preventDefault();
-			openCmdPalette();
-		}
-	}
-
-	// Close with ESC
-	if (e.key === 'Escape' && !cmdPaletteModal.hidden) {
-		closeCmdPalette();
-	}
-
-	// Execute command with Enter
-	if (e.key === 'Enter' && !cmdPaletteModal.hidden) {
-		const items = cmdResults.querySelectorAll('.cmd-result-item');
-		if (items.length > 0) {
-			const firstItem = items[0];
-			if (firstItem.style.color !== 'var(--text-muted)') {
-				const index = Array.from(items).indexOf(firstItem);
-				commands[index].action();
-				closeCmdPalette();
-			}
-		}
-	}
-
-	// Arrow key navigation in command palette
-	if (!cmdPaletteModal.hidden && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
-		e.preventDefault();
-		const items = Array.from(cmdResults.querySelectorAll('.cmd-result-item'));
-		const currentItem = cmdResults.querySelector('.cmd-result-item:hover');
-		let nextIndex = 0;
-
-		if (currentItem && currentItem.style.color !== 'var(--text-muted)') {
-			const currentIndex = items.indexOf(currentItem);
-			nextIndex = e.key === 'ArrowDown' ? currentIndex + 1 : currentIndex - 1;
-			nextIndex = Math.max(0, Math.min(nextIndex, items.length - 1));
-		}
-
-		// Simulate hover on next item
-		items.forEach((item, i) => {
-			if (i === nextIndex && item.style.color !== 'var(--text-muted)') {
-				item.scrollIntoView({ block: 'nearest' });
-			}
-		});
-	}
-});
-
-// Close modal on background click
-cmdPaletteModal.addEventListener('click', (e) => {
-	if (e.target === cmdPaletteModal) {
-		closeCmdPalette();
-	}
-});
-
-/* ============================================
-   SMOOTH SCROLL TO SECTION
-   ============================================ */
-function scrollToSection(sectionId) {
-	const section = document.getElementById(sectionId);
-	if (section) {
-		section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-	}
+function updateActiveItem() {
+  const items = cmdResults.querySelectorAll('.cmd-result-item');
+  items.forEach((item, i) => item.classList.toggle('active', i === cmdActiveIdx));
+  if (cmdActiveIdx >= 0 && cmdActiveIdx < items.length) {
+    items[cmdActiveIdx].scrollIntoView({ block: 'nearest' });
+  }
 }
+
+cmdInput.addEventListener('keydown', (e) => {
+  const items = cmdResults.querySelectorAll('.cmd-result-item:not([style*="color"])');
+  if (e.key === 'Enter') {
+    const selected = cmdResults.querySelector('.cmd-result-item.active');
+    if (selected && selected.dataset.index !== undefined) {
+      commands[parseInt(selected.dataset.index)].action();
+      closeCmdPalette();
+    } else if (items.length > 0 && items[0].dataset.index !== undefined) {
+      commands[parseInt(items[0].dataset.index)].action();
+      closeCmdPalette();
+    }
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    cmdActiveIdx = Math.min(cmdActiveIdx + 1, items.length - 1);
+    updateActiveItem();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    cmdActiveIdx = Math.max(cmdActiveIdx - 1, 0);
+    updateActiveItem();
+  } else if (e.key === 'Escape') {
+    closeCmdPalette();
+  }
+});
+
+cmdPalette.addEventListener('click', (e) => {
+  if (e.target === cmdPalette || e.target.classList.contains('modal-overlay')) closeCmdPalette();
+});
+
+/* / and Ctrl+K */
+document.addEventListener('keydown', (e) => {
+  if (cmdPalette.hidden && (e.key === '/' || (e.ctrlKey && e.key === 'k'))) {
+    if (!(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
+      e.preventDefault();
+      openCmdPalette();
+    }
+  }
+});
 
 /* ============================================
    HELP MODAL
    ============================================ */
 const helpModal = document.getElementById('helpModal');
 
-function openHelpModal() {
-	helpModal.hidden = false;
+function openHelp() {
+  helpModal.hidden = false;
 }
 
-function closeHelpModal() {
-	helpModal.hidden = true;
+function closeHelp() {
+  helpModal.hidden = true;
 }
 
 document.addEventListener('keydown', (e) => {
-	// Open help with ?
-	if (e.key === '?' && helpModal.hidden) {
-		e.preventDefault();
-		openHelpModal();
-	}
-
-	// Close help with ESC
-	if (e.key === 'Escape' && !helpModal.hidden) {
-		closeHelpModal();
-	}
+  if (e.key === '?' && helpModal.hidden && cmdPalette.hidden) {
+    e.preventDefault();
+    openHelp();
+  }
+  if (e.key === 'Escape') {
+    if (!helpModal.hidden) closeHelp();
+    else if (!cmdPalette.hidden) closeCmdPalette();
+  }
 });
 
 helpModal.addEventListener('click', (e) => {
-	if (e.target === helpModal) {
-		closeHelpModal();
-	}
+  if (e.target === helpModal || e.target.classList.contains('modal-overlay')) closeHelp();
 });
+
+document.querySelector('.close-help')?.addEventListener('click', closeHelp);
 
 /* ============================================
    EASTER EGGS
    ============================================ */
-
-// A. VIM TRAP
-const vimTrapModal = document.getElementById('vimTrap');
+const vimTrap = document.getElementById('vimTrap');
 let keyBuffer = '';
-
-document.addEventListener('keydown', (e) => {
-	// Build key buffer
-	keyBuffer += e.key.toLowerCase();
-	if (keyBuffer.length > 10) {
-		keyBuffer = keyBuffer.slice(-10);
-	}
-
-	// Detect "vim"
-	if (keyBuffer.includes('vim') && vimTrapModal.hidden) {
-		vimTrapModal.hidden = false;
-		keyBuffer = '';
-	}
-
-	// Detect :q to close
-	if (keyBuffer.includes(':q') && !vimTrapModal.hidden) {
-		vimTrapModal.hidden = true;
-		keyBuffer = '';
-	}
-
-	// Close with ESC
-	if (e.key === 'Escape' && !vimTrapModal.hidden) {
-		vimTrapModal.hidden = true;
-		keyBuffer = '';
-	}
-});
-
-// B. KONAMI CODE
 const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let konamiIndex = 0;
+let konamiIdx = 0;
 
 document.addEventListener('keydown', (e) => {
-	if (e.key === konamiCode[konamiIndex]) {
-		konamiIndex++;
-		if (konamiIndex === konamiCode.length) {
-			triggerKonamiEasterEgg();
-			konamiIndex = 0;
-		}
-	} else {
-		konamiIndex = 0;
-	}
+  if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+  keyBuffer = (keyBuffer + e.key.toLowerCase()).slice(-25);
+
+  // Vim trap
+  if (keyBuffer.match(/(?:^|\W)(vim)$/) && vimTrap.hidden) {
+    vimTrap.hidden = false;
+    keyBuffer = '';
+  }
+
+  // :q to escape vim
+  if (keyBuffer.includes(':q') && !vimTrap.hidden) {
+    vimTrap.hidden = true;
+    keyBuffer = '';
+  }
+
+  // Escape vim
+  if (e.key === 'Escape' && !vimTrap.hidden) {
+    vimTrap.hidden = true;
+    keyBuffer = '';
+  }
+
+  // Sudo sandwich
+  if (keyBuffer.includes('sudomakemeasandwich')) {
+    showToast('🥪 Access granted. Sandwich made!');
+    keyBuffer = '';
+  }
+
+  // Konami code
+  if (e.key === konamiCode[konamiIdx]) {
+    konamiIdx++;
+    if (konamiIdx === konamiCode.length) {
+      showToast('🎉 Konami Code Activated! You found the secret!');
+      konamiIdx = 0;
+    }
+  } else {
+    konamiIdx = 0;
+  }
 });
 
-function triggerKonamiEasterEgg() {
-	showToast(`🎉 Konami Code Activated! You found the secret!`);
-}
-
-// C. SUDO COMMAND
-document.addEventListener('keydown', (e) => {
-	keyBuffer = keyBuffer.toLowerCase();
-	if (keyBuffer.includes('sudomakemeasandwich')) {
-		showToast('🥪 Access granted. Sandwich made!');
-		keyBuffer = '';
-	}
+/* Close vim trap on overlay click */
+vimTrap.addEventListener('click', (e) => {
+  if (e.target === vimTrap || e.target.classList.contains('modal-overlay')) {
+    vimTrap.hidden = true;
+  }
 });
 
 /* ============================================
-   UTILITY FUNCTIONS
+   UTILITY: COPY TO CLIPBOARD
    ============================================ */
-
-// Copy to clipboard
 function copyToClipboard(text) {
-	navigator.clipboard.writeText(text).then(() => {
-		showToast(`📋 Copied: ${text}`);
-	});
-}
-
-// Update timestamp in footer
-function updateTimestamp() {
-	const timestampEl = document.getElementById('timestamp');
-	if (timestampEl) {
-		const now = new Date();
-		timestampEl.textContent = now.toLocaleString();
-	}
-}
-
-// Update timestamp every minute
-setInterval(updateTimestamp, 60000);
-
-// Toast notification
-function showToast(message) {
-	const toast = document.createElement('div');
-	toast.className = 'toast';
-	toast.textContent = message;
-	document.body.appendChild(toast);
-
-	setTimeout(() => {
-		toast.classList.add('show');
-	}, 10);
-
-	setTimeout(() => {
-		toast.classList.remove('show');
-		setTimeout(() => toast.remove(), 300);
-	}, 3000);
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`📋 Copied: ${text}`);
+  }).catch(() => {
+    showToast('❌ Failed to copy');
+  });
 }
 
 /* ============================================
-   ACCESSIBILITY: SKIP TO MAIN LINK
+   UTILITY: TOAST
+   ============================================ */
+function showToast(message) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => toast.classList.add('show'));
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+/* ============================================
+   SKIP LINK
    ============================================ */
 const skipLink = document.createElement('a');
-skipLink.href = '#home';
+skipLink.href = '#desktop';
+skipLink.className = 'skip-link';
 skipLink.textContent = 'Skip to main content';
-skipLink.style.position = 'absolute';
-skipLink.style.top = '-40px';
-skipLink.style.left = 0;
-skipLink.style.backgroundColor = 'var(--accent)';
-skipLink.style.padding = '8px';
-skipLink.style.zIndex = '10000';
-skipLink.style.textDecoration = 'none';
-skipLink.style.color = 'var(--bg-primary)';
-
-skipLink.addEventListener('focus', () => {
-	skipLink.style.top = '0';
-});
-
-skipLink.addEventListener('blur', () => {
-	skipLink.style.top = '-40px';
-});
-
 document.body.insertBefore(skipLink, document.body.firstChild);
 
 /* ============================================
-   INITIAL SETUP
+   CONSOLE EASTER EGG
    ============================================ */
-document.addEventListener('DOMContentLoaded', () => {
-	console.log('%c🟢 Terminal Resume loaded!', 'color: #00ff00; font-size: 16px; font-weight: bold;');
-	console.log('%cPress ? for keyboard shortcuts', 'color: #00ff00; font-size: 12px;');
-});
+console.log('%c🟢 ax1g — desktop portfolio', 'color: #cba6f7; font-size: 16px; font-weight: bold;');
+console.log('%c[1-2] workspaces  [?] help  [/] palette  [Ctrl+D] theme', 'color: #a6adc8; font-size: 12px;');
+console.log('%cTry "vim", Konami ↑↑↓↓←→←→BA, or "sudo make me a sandwich"', 'color: #a6adc8; font-size: 12px;');
+
+})();
